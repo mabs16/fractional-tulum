@@ -1,130 +1,90 @@
-import { createClient } from '@supabase/supabase-js'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
+import { createSupabaseMiddlewareClient } from './lib/supabase/middleware/client'
 
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next()
-  
-  // Crear cliente de Supabase para middleware
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-  
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
+export async function middleware(request: NextRequest) {
+  try {
+    const response = NextResponse.next()
+    const pathname = request.nextUrl.pathname
 
-  const { pathname } = req.nextUrl
-
-  // Rutas públicas que no requieren autenticación
-  const publicRoutes = [
-    '/',
-    '/iniciar-sesion',
-    '/login',
-    '/registro',
-    '/olvide-contrasena',
-    '/actualizar-contrasena',
-    '/verificar-correo',
-    '/auth/callback',
-    '/auth/signout'
-  ]
-
-  // Si es una ruta pública, permitir acceso
-  if (publicRoutes.some(route => pathname === route || pathname.startsWith('/auth/'))) {
-    return res
-  }
-
-  // Si no hay sesión, redirigir a login
-  if (!session) {
-    const redirectUrl = new URL('/iniciar-sesion', req.url)
-    redirectUrl.searchParams.set('redirectTo', pathname)
-    return NextResponse.redirect(redirectUrl)
-  }
-
-  // Obtener datos del usuario desde la base de datos
-  const { data: userData, error } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('user_id', session.user.id)
-    .single()
-
-  if (error || !userData) {
-    console.log('❌ Error obteniendo perfil del usuario:', error)
-    // Si hay error obteniendo el usuario, redirigir a login
-    const redirectUrl = new URL('/iniciar-sesion', req.url)
-    return NextResponse.redirect(redirectUrl)
-  }
-
-  const userRole = userData.role
-  console.log('🔍 Middleware - Usuario:', session.user.email, 'Rol:', userRole, 'Ruta:', pathname)
-
-  // Lógica de protección de rutas basada en roles
-  
-  // Usuarios con rol PENDIENTE solo pueden acceder a /revision
-  if (userRole === 'PENDIENTE') {
-    if (pathname !== '/revision') {
-      console.log('🔄 Redirigiendo usuario PENDIENTE a /revision')
-      return NextResponse.redirect(new URL('/revision', req.url))
-    }
-    return res
-  }
-
-  // Redirigir usuarios con roles específicos a sus dashboards si están en /revision
-  if (pathname === '/revision') {
-    let redirectPath = ''
-    switch (userRole) {
-      case 'ADMIN':
-        redirectPath = '/admin/dashboard'
-        break
-      case 'COPROPIETARIO':
-        redirectPath = '/copropietario/dashboard'
-        break
-      case 'PROSPECTO':
-        redirectPath = '/prospecto/bienvenida'
-        break
-    }
+    // RUTAS PÚBLICAS: Cualquiera puede acceder sin verificación de sesión
+    const publicRoutes = [
+      '/',
+      '/copropiedad-fraccional',
+      '/propiedad-alfa', 
+      '/la-propuesta',
+      '/faq',
+      '/acceder',
+      '/auth/callback',
+      '/revision',
+      '/verificar-correo'
+    ]
     
-    if (redirectPath) {
-      console.log(`🔄 Redirigiendo usuario ${userRole} de /revision a ${redirectPath}`)
-      return NextResponse.redirect(new URL(redirectPath, req.url))
+    // Verificar si es una ruta pública ANTES de cualquier otra lógica
+    if (publicRoutes.includes(pathname)) {
+      return response
     }
-  }
 
-  // Rutas de administrador - solo para rol ADMIN
-  if (pathname.startsWith('/admin')) {
-    if (userRole !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/acceso-denegado', req.url))
+    // Solo para rutas protegidas: verificar sesión y rol
+    try {
+      const supabase = createSupabaseMiddlewareClient(request, response)
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+      if (sessionError) {
+        console.error('[MIDDLEWARE] Session error:', sessionError)
+        return NextResponse.redirect(new URL('/acceder', request.url))
+      }
+
+      // SI NO HAY SESIÓN Y LA RUTA NO ES PÚBLICA, REDIRIGIR A ACCEDER
+      if (!session) {
+        return NextResponse.redirect(new URL('/acceder', request.url))
+      }
+
+      // SI HAY SESIÓN, VERIFICAMOS EL ROL Y APLICAMOS REGLAS
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('user_id', session.user.id)
+        .single()
+
+      if (profileError) {
+        console.error('[MIDDLEWARE] Profile error:', profileError)
+        // Si no se puede obtener el perfil, redirigir a acceder
+        return NextResponse.redirect(new URL('/acceder', request.url))
+      }
+
+      const role = profile?.role
+
+      // Regla 1: Si el rol es PENDIENTE, solo puede estar en /revision.
+      if (role === 'PENDIENTE' && pathname !== '/revision') {
+        return NextResponse.redirect(new URL('/revision', request.url))
+      }
+
+      // Regla 2: Si es COPROPIETARIO, solo puede acceder a su portal.
+      if (role === 'COPROPIETARIO' && !pathname.startsWith('/copropietario')) {
+        return NextResponse.redirect(new URL('/copropietario/dashboard', request.url))
+      }
+
+      // Regla 3: Si es PROSPECTO, solo puede acceder a su portal.
+      if (role === 'PROSPECTO' && !pathname.startsWith('/prospecto')) {
+        return NextResponse.redirect(new URL('/prospecto/bienvenida', request.url))
+      }
+
+      // Regla 4: Si es ADMIN, solo puede acceder a su portal.
+      if (role === 'ADMIN' && !pathname.startsWith('/admin')) {
+        return NextResponse.redirect(new URL('/admin/dashboard', request.url))
+      }
+
+      return response
+    } catch (error) {
+      console.error('[MIDDLEWARE] Unexpected error:', error)
+      // En caso de error inesperado, redirigir a acceder para evitar bloqueos
+      return NextResponse.redirect(new URL('/acceder', request.url))
     }
-    return res
+  } catch (globalError) {
+    console.error('[MIDDLEWARE] Global error:', globalError)
+    // En caso de error global, permitir el acceso
+    return NextResponse.next()
   }
-
-  // Rutas de copropietario - solo para rol COPROPIETARIO
-  if (pathname.startsWith('/copropietario')) {
-    if (userRole !== 'COPROPIETARIO') {
-      return NextResponse.redirect(new URL('/acceso-denegado', req.url))
-    }
-    return res
-  }
-
-  // Rutas de prospecto - solo para rol PROSPECTO
-  if (pathname.startsWith('/prospecto')) {
-    if (userRole !== 'PROSPECTO') {
-      return NextResponse.redirect(new URL('/acceso-denegado', req.url))
-    }
-    return res
-  }
-
-  // Página de revisión - solo accesible para usuarios PENDIENTE
-  if (pathname === '/revision') {
-    if (userRole !== 'PENDIENTE') {
-      console.log(`❌ Usuario ${userRole} intentando acceder a /revision - acceso denegado`)
-      return NextResponse.redirect(new URL('/acceso-denegado', req.url))
-    }
-    return res
-  }
-
-  return res
 }
 
 export const config = {
@@ -134,8 +94,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - public folder
+     * - api routes
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|api).*)',
   ],
 }

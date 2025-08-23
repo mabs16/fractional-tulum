@@ -19,11 +19,8 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="flex space-x-4">
-          <Link href="/login" className="text-blue-600 hover:text-blue-800">
-            Iniciar Sesión
-          </Link>
-          <Link href="/registro" className="text-blue-600 hover:text-blue-800">
-            Registro
+          <Link href="/acceder" className="text-blue-600 hover:text-blue-800">
+            Acceder / Registrarse
           </Link>
         </div>
       </div>
