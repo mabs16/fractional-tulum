@@ -3,6 +3,7 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface AuthFormProps {
   onViewChange?: (view: 'sign_in' | 'sign_up') => void
@@ -10,8 +11,79 @@ interface AuthFormProps {
 
 export default function AuthForm({ onViewChange }: AuthFormProps) {
   const supabase = createClientComponentClient()
+  const router = useRouter()
 
   useEffect(() => {
+    console.log('🔧 [AUTH FORM] Configurando listeners de autenticación')
+    
+    // Verificar estado inicial de autenticación
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.error('❌ [AUTH FORM] Error al obtener sesión inicial:', error)
+      } else if (session) {
+        console.log('✅ [AUTH FORM] Sesión inicial encontrada:', session.user.email)
+      } else {
+        console.log('ℹ️ [AUTH FORM] No hay sesión inicial')
+      }
+    })
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('🔄 [AUTH FORM] Evento de autenticación:', event)
+      console.log('👤 [AUTH FORM] Datos de sesión:', {
+        user_id: session?.user?.id,
+        email: session?.user?.email,
+        email_confirmed: session?.user?.email_confirmed_at,
+        created_at: session?.user?.created_at
+      })
+      
+      if (event === 'SIGNED_IN' && session) {
+        console.log('✅ [AUTH FORM] Usuario autenticado exitosamente')
+        console.log('🔍 [AUTH FORM] Verificando estado del usuario...')
+        
+        // Verificar si el usuario necesita confirmar su email
+        if (!session.user.email_confirmed_at) {
+          console.log('📧 [AUTH FORM] Email no confirmado, redirigiendo a página de verificación')
+          router.push('/verificar-correo')
+          return
+        }
+        
+        // Redireccionar al dashboard según el rol del usuario
+        try {
+          console.log('📊 [AUTH FORM] Consultando perfil del usuario:', session.user.id)
+          const { data: profile, error } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single()
+          
+          console.log('📋 [AUTH FORM] Resultado de consulta de perfil:', { profile, error })
+          
+          if (profile?.role === 'ADMIN') {
+            console.log('👑 [AUTH FORM] Redirigiendo a dashboard de admin')
+            router.push('/admin')
+          } else if (profile?.role === 'COPROPIETARIO') {
+            console.log('🏠 [AUTH FORM] Redirigiendo a dashboard de copropietario')
+            router.push('/copropietario')
+          } else if (profile?.role === 'PROSPECTO') {
+            console.log('🎯 [AUTH FORM] Redirigiendo a bienvenida de prospecto')
+            router.push('/prospecto/bienvenida')
+          } else {
+            console.log('👤 [AUTH FORM] Sin rol definido o pendiente, redirigiendo a revisión')
+            router.push('/revision')
+          }
+        } catch (error) {
+          console.error('❌ [AUTH FORM] Error inesperado al obtener perfil:', error)
+          console.error('🔍 [AUTH FORM] Stack trace:', error instanceof Error ? error.stack : 'No stack trace available')
+          router.push('/revision')
+        }
+      } else if (event === 'SIGNED_OUT') {
+        console.log('🚪 [AUTH FORM] Usuario cerró sesión')
+        router.push('/acceder')
+      } else if (event === 'TOKEN_REFRESHED') {
+        console.log('🔄 [AUTH FORM] Token renovado')
+      }
+    })
+    
     // Detectar cambios en la vista del Auth component
     const detectViewChange = () => {
       // Detectar SOLO por el botón principal para evitar conflictos
@@ -71,6 +143,7 @@ export default function AuthForm({ onViewChange }: AuthFormProps) {
     // Cleanup
     return () => {
       observer.disconnect()
+      subscription.unsubscribe()
     }
   }, [onViewChange])
 
