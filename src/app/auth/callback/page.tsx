@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
+import type { EmailOtpType } from '@supabase/supabase-js'
 import type { UserRole, Profile } from '@/lib/supabase'
 
 // Extender los tipos existentes para incluir los roles específicos del callback
@@ -107,7 +108,7 @@ export default function AuthCallbackPage() {
           
           const { data: verifyData, error: verifyError } = await supabase.auth.verifyOtp({
             token_hash: verificationToken,
-            type: verificationType as any
+            type: verificationType as EmailOtpType
           })
           
           if (verifyError) {
