@@ -5,6 +5,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import DocumentDownloadButton from '@/components/documents/DocumentDownloadButton'; // Reutilizamos este componente
 
+// Tipo para los documentos del contrato
+type ContractDocument = {
+  storage_path?: string;
+};
+
+type ContractDocuments = ContractDocument | ContractDocument[];
+
 export default async function MisContratosPage() {
   const supabase = await createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -72,7 +79,7 @@ export default async function MisContratosPage() {
                     <TableCell>{new Date(contract.created_at).toLocaleDateString('es-ES')}</TableCell>
                     <TableCell className="text-right">
                       {(() => {
-                        const docs = contract.documents as any;
+                        const docs = contract.documents as ContractDocuments;
                         if (Array.isArray(docs) && docs.length > 0 && docs[0]?.storage_path) {
                           return <DocumentDownloadButton storagePath={docs[0].storage_path} />;
                         } else if (docs && !Array.isArray(docs) && docs.storage_path) {
