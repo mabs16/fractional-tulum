@@ -48,9 +48,9 @@ export default function NuestraVillaPage() {
   };
 
   useEffect(() => {
-    const sections = gsap.utils.toArray('.scroll-section');
+    const sections: HTMLElement[] = gsap.utils.toArray('.scroll-section') as HTMLElement[];
     
-    sections.forEach((section: any, index) => {
+    sections.forEach((section: HTMLElement, index) => {
       const content = section.querySelector('.content-wrapper');
       
       gsap.fromTo(content, 
