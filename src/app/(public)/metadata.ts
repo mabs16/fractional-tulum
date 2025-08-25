@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 const baseUrl = 'https://fractional-tulum.vercel.app'
-const defaultImage = `${baseUrl}/og-image.jpg`
+const defaultImage = 'https://tulumfractional.b-cdn.net/og-image.jpg'
 
 // Metadatos para la página de inicio
 export const homeMetadata: Metadata = {
