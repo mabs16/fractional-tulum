@@ -16,16 +16,17 @@ export default function HomePage() {
     const ctx = gsap.context(() => {
       // --- Lógica de Animaciones ---
       const sections = gsap.utils.toArray('.scroll-section');
-      sections.forEach((section: any, index) => {
+      sections.forEach((section: unknown, index) => {
+        const sectionElement = section as Element;
         // Animación para el contenido de cada sección
-        gsap.fromTo(section.querySelector('.content-wrapper'),
+        gsap.fromTo(sectionElement.querySelector('.content-wrapper'),
           { opacity: 0, y: 100 },
           {
             opacity: 1,
             y: 0,
             duration: 1,
             scrollTrigger: {
-              trigger: section,
+              trigger: sectionElement,
               scroller: scrollContainerRef.current,
               start: 'top 60%',
               end: 'bottom 40%',
@@ -50,28 +51,39 @@ export default function HomePage() {
   }
 
   return (
-    <div ref={mainRef}>
+    <div ref={mainRef} className="h-screen w-screen">
       {/* CAPA DE CONTENIDO DESLIZABLE */}
       <div
         ref={scrollContainerRef}
-        className="relative z-10 h-screen overflow-y-scroll snap-y snap-mandatory"
+        className="h-full w-full z-10 overflow-y-scroll snap-y snap-mandatory"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {/* ================================================================== */}
         {/* SECCIÓN 1: El Lujo Inteligente (Hero) */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-center text-white p-4">
+        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-center text-black dark:text-white p-4">
           <div className="content-wrapper">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-shadow-lg">Más Allá de la Propiedad. El Lujo de la Inteligencia.</h1>
-            <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-shadow">
-              Una nueva forma de poseer un paraíso vacacional, diseñada para quienes valoran tanto su patrimonio como su tiempo.
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-shadow-lg mb-8">Más Allá de la Propiedad. El Lujo de la Inteligencia.</h1>
+            <p className="text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+              Una nueva forma de poseer un paraíso vacacional, diseñada para quienes
+              valoran tanto su patrimonio como su tiempo.
             </p>
-            <Button size="lg" className="mt-8 bg-brand-gold hover:bg-brand-gold/90 text-black font-bold">
+            <Button 
+              size="lg" 
+              className="px-16 py-6 text-2xl font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-8 hover:brightness-90"
+              style={{
+                background: 'linear-gradient(to right, #B89E63, #A08B56)'
+              }}
+              onClick={scrollToNextSection}
+            >
               Explora la Oportunidad
             </Button>
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-                <Button variant="ghost" size="icon" onClick={scrollToNextSection}>
-                    <ArrowDown className="h-6 w-6 animate-bounce" />
+            <div className="mt-8 flex justify-center">
+              <div className="animate-bounce">
+                <Button variant="ghost" size="lg" onClick={scrollToNextSection}>
+                    <ArrowDown className="h-16 w-16 animate-bounce" />
                 </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -79,7 +91,7 @@ export default function HomePage() {
         {/* ================================================================== */}
         {/* SECCIÓN 2: El Dilema del Activo de Lujo */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-white p-4">
+        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
           <div className="content-wrapper text-center">
             <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12">Tener una Casa en el Paraíso No Debería Ser un Trabajo a Tiempo Completo.</h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -108,13 +120,25 @@ export default function HomePage() {
         {/* ================================================================== */}
         {/* SECCIÓN 3: La Solución Fractional Tulum */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-white p-4">
+        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
             <div className="content-wrapper text-center max-w-4xl">
-                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">Propiedad Real. Cero Complicaciones.</h2>
+                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">
+                    Propiedad Real.<br/>
+                    Cero Complicaciones.
+                </h2>
                 <div className="space-y-6 text-lg">
-                    <p>✅ <span className="font-bold text-brand-gold">Patrimonio Optimizado:</span> Posee un activo de lujo por una fracción de su costo. Es propiedad real, heredable y vendible, respaldada por nuestra "Sociedad de Copropiedad Dedicada".</p>
-                    <p>✅ <span className="font-bold text-brand-gold">Tranquilidad Absoluta:</span> Somos los guardianes de tu inversión. Nuestro equipo de expertos se encarga de la gestión integral para que tú solo te dediques a disfrutar.</p>
-                    <p>✅ <span className="font-bold text-brand-gold">Activo Autosostenible:</span> Un modelo diseñado para que la renta cubra los gastos. La casa de tus sueños no te cuesta mientras no la usas.</p>
+                    <div>
+                        <p className="font-bold text-brand-gold mb-2">✅ Patrimonio Optimizado:</p>
+                        <p>Posee un activo de lujo por una fracción de su costo. Es propiedad real, heredable y vendible, respaldada por nuestra &quot;Sociedad de Copropiedad Dedicada&quot;.</p>
+                    </div>
+                    <div>
+                        <p className="font-bold text-brand-gold mb-2">✅ Tranquilidad Absoluta:</p>
+                        <p>Somos los guardianes de tu inversión. Nuestro equipo de expertos se encarga de la gestión integral para que tú solo te dediques a disfrutar.</p>
+                    </div>
+                    <div>
+                        <p className="font-bold text-brand-gold mb-2">✅ Activo Autosostenible:</p>
+                        <p>Un modelo diseñado para que la renta cubra los gastos. La casa de tus sueños no te cuesta mientras no la usas.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -122,7 +146,7 @@ export default function HomePage() {
         {/* ================================================================== */}
         {/* SECCIÓN 4: Un Destino de Clase Mundial */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-white p-4">
+        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
             <div className="content-wrapper text-center">
                 <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">No Solo es la Casa, es el Destino: Tulum Country Club.</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg">Tu propiedad forma parte de una comunidad exclusiva con un campo de golf de clase mundial y acceso a las mejores amenidades de la Riviera Maya.</p>
@@ -139,7 +163,7 @@ export default function HomePage() {
         {/* ================================================================== */}
         {/* SECCIÓN 5: La Visión a Futuro */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-white p-4">
+        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
             <div className="content-wrapper text-center">
                 <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">Tu Llave a un Mundo de Destinos.</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg">Tu propiedad en Tulum es solo el comienzo. Es la llave de entrada a un futuro portafolio de residencias exclusivas en los destinos más deseados.</p>

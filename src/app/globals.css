@@ -121,3 +121,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Ocultar barras de desplazamiento en navegadores WebKit */
+::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}

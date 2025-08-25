@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
   // --- LÓGICA DE PROTECCIÓN ---
 
   // 1. Definimos las rutas que son 100% públicas
-  const publicRoutes = ['/', '/copropiedad-fraccional', '/nuestra-villa', '/la-propuesta', '/faq', '/propiedad-inteligente', '/nuestro-equipo']
+  const publicRoutes = ['/', '/copropiedad-fraccional', '/nuestra-villa', '/la-propuesta', '/preguntas-frecuentes', '/propiedad-inteligente', '/nuestro-equipo']
   if (publicRoutes.includes(pathname)) {
     return response // Si es una de estas, dejamos pasar sin hacer nada más.
   }

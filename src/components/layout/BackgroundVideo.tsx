@@ -19,12 +19,20 @@ export function BackgroundVideo() {
   const { theme } = useTheme()
   const video1Ref = useRef<HTMLVideoElement>(null)
   const video2Ref = useRef<HTMLVideoElement>(null)
+  const [mounted, setMounted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [currentVideo, setCurrentVideo] = useState(1)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
+  // Manejar el montaje del componente para evitar errores de hidratación
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   // Detectar si es dispositivo móvil
   useEffect(() => {
+    if (!mounted) return
+    
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768)
     }
@@ -33,12 +41,15 @@ export function BackgroundVideo() {
     window.addEventListener('resize', checkMobile)
     
     return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  }, [mounted])
 
   // Seleccionar el video apropiado según el dispositivo y tema
-  const videoSrc = isMobile 
-    ? (theme === 'dark' ? videoSources.mobile.dark : videoSources.mobile.light)
-    : (theme === 'dark' ? videoSources.desktop.dark : videoSources.desktop.light)
+  // Usar valores por defecto consistentes durante la hidratación
+  const videoSrc = !mounted 
+    ? videoSources.desktop.light // Valor por defecto consistente
+    : isMobile 
+      ? (theme === 'dark' ? videoSources.mobile.dark : videoSources.mobile.light)
+      : (theme === 'dark' ? videoSources.desktop.dark : videoSources.desktop.light)
 
   // Función para cargar video con HLS
   const loadVideo = (video: HTMLVideoElement, src: string) => {
@@ -62,6 +73,8 @@ export function BackgroundVideo() {
 
   // Efecto para manejar transiciones suaves entre videos
   useEffect(() => {
+    if (!mounted) return // Solo ejecutar después del montaje
+    
     const video1 = video1Ref.current
     const video2 = video2Ref.current
     if (!video1 || !video2) return
@@ -99,7 +112,7 @@ export function BackgroundVideo() {
         hls.destroy()
       }
     }
-  }, [videoSrc, theme, isMobile])
+  }, [mounted, videoSrc, theme, isMobile])
 
   return (
     <div className="fixed inset-0 w-screen h-screen -z-10 overflow-hidden bg-white dark:bg-black">
