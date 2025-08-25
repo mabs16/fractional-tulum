@@ -116,7 +116,7 @@ export default function PropiedadInteligentePage() {
                         <CardTitle className="flex items-center gap-2"><Shield className="text-brand-gold"/>Sociedad de Copropiedad Dedicada</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-gray-700 dark:text-muted-foreground">Tu inversión está protegida en una "caja fuerte" legal a la medida. Constituimos una sociedad con un único propósito: poseer y salvaguardar la Propiedad Alfa. No hace nada más. Es la máxima garantía de que tu activo está seguro.</p>
+                        <p className="text-gray-700 dark:text-muted-foreground">Tu inversión está protegida en una &quot;caja fuerte&quot; legal a la medida. Constituimos una sociedad con un único propósito: poseer y salvaguardar la Propiedad Alfa. No hace nada más. Es la máxima garantía de que tu activo está seguro.</p>
                     </CardContent>
                 </Card>
                 <Card className="bg-white/90 dark:bg-black/30 backdrop-blur-sm border-gray-200 dark:border-white/20">
