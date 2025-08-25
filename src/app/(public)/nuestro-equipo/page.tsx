@@ -8,11 +8,13 @@ import { CheckCircle, Briefcase, Calendar, Rocket, ChevronDown} from 'lucide-rea
 import Link from 'next/link';
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function NuestroEquipoPage() {
   const mainRef = useRef<HTMLDivElement>(null)
+  const isMobile = useIsMobile()
 
 
   useEffect(() => {
@@ -103,7 +105,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
-            <div className="aspect-square bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg">
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Videode Luis Ángel</p>
             </div>
           </div>
@@ -139,7 +141,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="order-1 md:order-2">
-            <div className="aspect-square bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg">
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Video de Lalo</p>
             </div>
           </div>
@@ -175,7 +177,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
-            <div className="aspect-square bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg">
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Video de Erick</p>
             </div>
           </div>
@@ -211,7 +213,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="order-1 md:order-2">
-            <div className="aspect-square bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg">
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Videode Alejandro</p>
             </div>
           </div>
@@ -247,7 +249,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
-            <div className="aspect-square bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg">
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Video de Mario</p>
             </div>
           </div>

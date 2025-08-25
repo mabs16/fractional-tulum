@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import dynamic from "next/dynamic";
 
@@ -27,6 +28,10 @@ gsap.registerPlugin(ScrollTrigger);
 export default function NuestraVillaPage() {
   const mainRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
+  const section4Ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  const [snapEnabled, setSnapEnabled] = useState(true);
 
   // Lista de amenidades extraída de los planos
   const amenities = [
@@ -44,6 +49,34 @@ export default function NuestraVillaPage() {
         top: window.innerHeight,
         behavior: 'smooth'
       });
+    }
+  };
+
+  // Funciones para detectar scroll interno
+  const hasInternalScroll = (element: HTMLDivElement | null) => {
+    if (!element) return false;
+    return element.scrollHeight > element.clientHeight;
+  };
+
+  const isAtScrollEnd = (element: HTMLDivElement | null) => {
+    if (!element) return true;
+    return element.scrollTop + element.clientHeight >= element.scrollHeight - 5;
+  };
+
+  // Función para manejar el scroll de las secciones
+  const handleSectionScroll = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!isMobile || !sectionRef.current) return;
+    
+    const section = sectionRef.current;
+    const hasScroll = hasInternalScroll(section);
+    const atEnd = isAtScrollEnd(section);
+    
+    if (hasScroll && !atEnd) {
+      // Hay scroll interno y no estamos al final, deshabilitar snap
+      setSnapEnabled(false);
+    } else {
+      // No hay scroll interno o estamos al final, habilitar snap
+      setSnapEnabled(true);
     }
   };
 
@@ -85,7 +118,7 @@ export default function NuestraVillaPage() {
     <div ref={mainRef} className="bg-transparent">
       <div 
         ref={scrollContainerRef}
-        className="h-screen overflow-y-scroll snap-y snap-mandatory"
+        className={`h-screen overflow-y-scroll ${snapEnabled ? 'snap-y snap-mandatory' : ''}`}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {/* ================================================================== */}
@@ -162,7 +195,15 @@ export default function NuestraVillaPage() {
         {/* ================================================================== */}
         {/* SECCIÓN 2: CARACTERÍSTICAS PRINCIPALES */}
         {/* ================================================================== */}
-        <section className="scroll-section snap-start h-screen flex items-center justify-center bg-transparent">
+        <section 
+          ref={section2Ref}
+          className={`scroll-section snap-start bg-transparent ${
+            isMobile 
+              ? 'h-auto min-h-screen pt-20 pb-8 overflow-y-auto flex items-start justify-center' 
+              : 'h-screen flex items-center justify-center'
+          }`}
+          onScroll={() => handleSectionScroll(section2Ref)}
+        >
           <div className="content-wrapper container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white">Características Principales</h2>
@@ -237,7 +278,15 @@ export default function NuestraVillaPage() {
         {/* ================================================================== */}
         {/* SECCIÓN 4: AMENIDADES DETALLADAS */}
         {/* ================================================================== */}
-        <section className="scroll-section snap-start h-screen flex items-center justify-center bg-transparent dark:bg-black">
+        <section 
+          ref={section4Ref}
+          className={`scroll-section snap-start bg-transparent dark:bg-black ${
+            isMobile 
+              ? 'h-auto min-h-screen pt-20 pb-8 overflow-y-auto flex items-start justify-center' 
+              : 'h-screen flex items-center justify-center'
+          }`}
+          onScroll={() => handleSectionScroll(section4Ref)}
+        >
           <div className="content-wrapper container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white">Un Estilo de Vida Inigualable</h2>
             <p className="mt-2 text-gray-700 dark:text-muted-foreground">Cada amenidad está diseñada para tu máximo confort y disfrute.</p>

@@ -1,16 +1,79 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowDown } from 'lucide-react'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function HomePage() {
   const mainRef = useRef(null)
   const scrollContainerRef = useRef(null)
+  const section2Ref = useRef<HTMLDivElement>(null)
+  const section3Ref = useRef<HTMLDivElement>(null)
+  const isMobile = useIsMobile()
+  const [snapEnabled, setSnapEnabled] = useState(true)
+  const [currentSection, setCurrentSection] = useState(0)
+
+  // Función para detectar si una sección tiene scroll interno disponible
+  const hasInternalScroll = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!sectionRef.current) return false
+    const element = sectionRef.current
+    return element.scrollHeight > element.clientHeight
+  }
+
+  // Función para detectar si se llegó al final del scroll interno
+  const isAtScrollEnd = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!sectionRef.current) return true
+    const element = sectionRef.current
+    return element.scrollTop + element.clientHeight >= element.scrollHeight - 10 // 10px de tolerancia
+  }
+
+  // Función para manejar el scroll del contenedor principal
+  const handleContainerScroll = () => {
+    if (!isMobile) return
+    
+    const container = scrollContainerRef.current as HTMLDivElement | null
+    if (!container) return
+
+    const scrollTop = container.scrollTop
+    const sectionHeight = window.innerHeight
+    const currentSectionIndex = Math.round(scrollTop / sectionHeight)
+    
+    setCurrentSection(currentSectionIndex)
+
+    // Solo aplicar lógica especial para secciones 2 y 3 (índices 1 y 2)
+    if (currentSectionIndex === 1 || currentSectionIndex === 2) {
+      const sectionRef = currentSectionIndex === 1 ? section2Ref : section3Ref
+      
+      if (hasInternalScroll(sectionRef)) {
+        // Si la sección tiene scroll interno y no estamos al final, deshabilitar snap
+        if (!isAtScrollEnd(sectionRef)) {
+          setSnapEnabled(false)
+        } else {
+          setSnapEnabled(true)
+        }
+      } else {
+        setSnapEnabled(true)
+      }
+    } else {
+      setSnapEnabled(true)
+    }
+  }
+
+  // Función para manejar el scroll interno de las secciones
+  const handleSectionScroll = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!isMobile) return
+    
+    if (isAtScrollEnd(sectionRef)) {
+      setSnapEnabled(true)
+    } else {
+      setSnapEnabled(false)
+    }
+  }
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -55,8 +118,11 @@ export default function HomePage() {
       {/* CAPA DE CONTENIDO DESLIZABLE */}
       <div
         ref={scrollContainerRef}
-        className="h-full w-full z-10 overflow-y-scroll snap-y snap-mandatory"
+        className={`h-full w-full z-10 overflow-y-scroll ${
+          snapEnabled ? 'snap-y snap-mandatory' : ''
+        }`}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        onScroll={handleContainerScroll}
       >
         {/* ================================================================== */}
         {/* SECCIÓN 1: El Lujo Inteligente (Hero) */}
@@ -91,7 +157,13 @@ export default function HomePage() {
         {/* ================================================================== */}
         {/* SECCIÓN 2: El Dilema del Activo de Lujo */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+        <section 
+          ref={section2Ref}
+          className={`scroll-section h-screen w-full snap-start flex text-black dark:text-white p-4 ${
+            isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'
+          }`}
+          onScroll={() => handleSectionScroll(section2Ref)}
+        >
           <div className="content-wrapper text-center">
             <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12">Tener una Casa en el Paraíso No Debería Ser un Trabajo a Tiempo Completo.</h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -120,7 +192,13 @@ export default function HomePage() {
         {/* ================================================================== */}
         {/* SECCIÓN 3: La Solución Fractional Tulum */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+        <section 
+          ref={section3Ref}
+          className={`scroll-section h-screen w-full snap-start flex text-black dark:text-white p-4 ${
+            isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'
+          }`}
+          onScroll={() => handleSectionScroll(section3Ref)}
+        >
             <div className="content-wrapper text-center max-w-4xl">
                 <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">
                     Propiedad Real.<br/>

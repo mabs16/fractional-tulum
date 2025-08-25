@@ -1,16 +1,21 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { CheckCircle, Shield, SlidersHorizontal, ArrowDown } from 'lucide-react'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function PropiedadInteligentePage() {
   const mainRef = useRef(null)
   const scrollContainerRef = useRef(null)
+  const section1Ref = useRef<HTMLDivElement | null>(null)
+  const section2Ref = useRef<HTMLDivElement | null>(null)
+  const [snapEnabled, setSnapEnabled] = useState(true)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -40,6 +45,35 @@ export default function PropiedadInteligentePage() {
     return () => ctx.revert();
   }, [])
 
+  // Función para detectar si una sección tiene scroll interno
+  const hasInternalScroll = (element: HTMLDivElement | null) => {
+    if (!element) return false
+    return element.scrollHeight > element.clientHeight
+  }
+
+  // Función para detectar si se ha llegado al final del scroll de una sección
+  const isAtScrollEnd = (element: HTMLDivElement | null) => {
+    if (!element) return false
+    return element.scrollTop + element.clientHeight >= element.scrollHeight - 5
+  }
+
+  // Función para manejar el scroll interno de las secciones
+  const handleSectionScroll = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!isMobile || !sectionRef.current) return
+
+    const section = sectionRef.current
+    const hasScroll = hasInternalScroll(section)
+    const atEnd = isAtScrollEnd(section)
+
+    if (hasScroll && !atEnd) {
+      // Si hay contenido para hacer scroll y no estamos al final, deshabilitar snap
+      setSnapEnabled(false)
+    } else {
+      // Si no hay scroll o estamos al final, habilitar snap
+      setSnapEnabled(true)
+    }
+  }
+
   const scrollToNextSection = () => {
     const container = scrollContainerRef.current as HTMLDivElement | null;
     if (container) {
@@ -55,13 +89,17 @@ export default function PropiedadInteligentePage() {
       {/* CAPA DE CONTENIDO DESLIZABLE */}
       <div
         ref={scrollContainerRef}
-        className="h-full w-full z-10 overflow-y-scroll snap-y snap-mandatory"
+        className={`h-full w-full z-10 overflow-y-scroll ${snapEnabled ? 'snap-y snap-mandatory' : ''}`}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {/* ================================================================== */}
         {/* SECCIÓN 1: El Manifiesto */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+        <section 
+          ref={section1Ref}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          onScroll={() => handleSectionScroll(section1Ref)}
+        >
           <div className="content-wrapper text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-8">
               Propiedad Real vs. Gasto Vacacional: La Diferencia Definitiva.
@@ -107,10 +145,14 @@ export default function PropiedadInteligentePage() {
         {/* ================================================================== */}
         {/* SECCIÓN 2: La Arquitectura de tu Tranquilidad */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+        <section 
+          ref={section2Ref}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          onScroll={() => handleSectionScroll(section2Ref)}
+        >
           <div className="content-wrapper text-center max-w-5xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-12 text-gray-900 dark:text-white">La Estructura de tu Inversión: Sólida y Transparente</h2>
-            <div className="grid md:grid-cols-2 gap-8 text-left">
+            <div className="grid md:grid-cols-2 gap-8 text-left mb-8">
                 <Card className="bg-white/90 dark:bg-black/30 backdrop-blur-sm border-gray-200 dark:border-white/20">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2"><Shield className="text-brand-gold"/>Sociedad de Copropiedad Dedicada</CardTitle>
@@ -127,6 +169,41 @@ export default function PropiedadInteligentePage() {
                         <p className="text-gray-700 dark:text-muted-foreground">Operamos como un hotel boutique de lujo, no como un conjunto de Airbnbs. Todos los ingresos y gastos se gestionan en un pool centralizado, lo que garantiza un mantenimiento impecable y tarifas optimizadas, sin que tú tengas que mover un dedo.</p>
                     </CardContent>
                 </Card>
+            </div>
+            
+            {/* Contenido adicional para móviles */}
+            <div className="space-y-6 text-left max-w-4xl mx-auto">
+              <div className="bg-white/80 dark:bg-black/20 p-6 rounded-lg border border-gray-200 dark:border-white/20">
+                <h3 className="text-xl font-bold mb-4 text-brand-gold">Ventajas Legales Exclusivas</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Título de propiedad real registrado ante notario público</span></li>
+                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Protección patrimonial mediante sociedad dedicada</span></li>
+                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Derechos de herencia y transferencia garantizados</span></li>
+                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Transparencia total en la estructura de costos</span></li>
+                </ul>
+              </div>
+              
+              <div className="bg-white/80 dark:bg-black/20 p-6 rounded-lg border border-gray-200 dark:border-white/20">
+                <h3 className="text-xl font-bold mb-4 text-brand-gold">Gestión Profesional Integral</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Mantenimiento preventivo y correctivo incluido</span></li>
+                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Gestión de reservas y huéspedes profesional</span></li>
+                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Optimización de tarifas según temporada</span></li>
+                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Reportes financieros mensuales detallados</span></li>
+                </ul>
+              </div>
+              
+              <div className="bg-white/80 dark:bg-black/20 p-6 rounded-lg border border-gray-200 dark:border-white/20">
+                <h3 className="text-xl font-bold mb-4 text-brand-gold">Tu Tranquilidad, Nuestra Prioridad</h3>
+                <p className="text-gray-700 dark:text-muted-foreground mb-4">
+                  No te preocupes por nada. Desde el mantenimiento de la piscina hasta la gestión de huéspedes, 
+                  nosotros nos encargamos de todo mientras tú disfrutas de los beneficios de ser propietario.
+                </p>
+                <p className="text-gray-700 dark:text-muted-foreground">
+                  Tu única responsabilidad es decidir cuándo quieres disfrutar de tu villa y cuándo prefieres 
+                  que genere ingresos por ti.
+                </p>
+              </div>
             </div>
           </div>
         </section>

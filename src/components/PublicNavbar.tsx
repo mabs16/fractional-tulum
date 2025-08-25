@@ -97,7 +97,7 @@ export function PublicNavbar() {
           {mounted ? (
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="text-white dark:text-black border-white/30 dark:border-black/30 hover:bg-white/10 dark:hover:bg-black/10">
+                <Button variant="whiteOutline" size="icon">
                   <Menu className="h-6 w-6" />
                   <span className="sr-only">Abrir menú</span>
                 </Button>

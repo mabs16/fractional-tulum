@@ -1,18 +1,82 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Briefcase, Calendar, Rocket, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function LaPropuestaPage() {
   const mainRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const section1Ref = useRef<HTMLDivElement>(null)
+  const section2Ref = useRef<HTMLDivElement>(null)
+  const section3Ref = useRef<HTMLDivElement>(null)
+  const [snapEnabled, setSnapEnabled] = useState(true)
+  const [currentSection, setCurrentSection] = useState(0)
+  const isMobile = useIsMobile()
+
+  // Función para detectar si una sección tiene scroll interno disponible
+  const hasInternalScroll = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!sectionRef.current) return false
+    const element = sectionRef.current
+    return element.scrollHeight > element.clientHeight
+  }
+
+  // Función para detectar si se llegó al final del scroll interno
+  const isAtScrollEnd = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!sectionRef.current) return true
+    const element = sectionRef.current
+    return element.scrollTop + element.clientHeight >= element.scrollHeight - 10 // 10px de tolerancia
+  }
+
+  // Función para manejar el scroll del contenedor principal
+  const handleContainerScroll = () => {
+    if (!isMobile) return
+    
+    const container = scrollContainerRef.current as HTMLDivElement | null
+    if (!container) return
+
+    const scrollTop = container.scrollTop
+    const sectionHeight = window.innerHeight
+    const currentSectionIndex = Math.round(scrollTop / sectionHeight)
+    
+    setCurrentSection(currentSectionIndex)
+
+    // Solo aplicar lógica especial para secciones 1, 2 y 3 (índices 0, 1 y 2)
+    if (currentSectionIndex === 0 || currentSectionIndex === 1 || currentSectionIndex === 2) {
+      const sectionRef = currentSectionIndex === 0 ? section1Ref : currentSectionIndex === 1 ? section2Ref : section3Ref
+      
+      if (hasInternalScroll(sectionRef)) {
+        // Si la sección tiene scroll interno y no estamos al final, deshabilitar snap
+        if (!isAtScrollEnd(sectionRef)) {
+          setSnapEnabled(false)
+        } else {
+          setSnapEnabled(true)
+        }
+      } else {
+        setSnapEnabled(true)
+      }
+    } else {
+      setSnapEnabled(true)
+    }
+  }
+
+  // Función para manejar el scroll interno de las secciones
+  const handleSectionScroll = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!isMobile) return
+    
+    if (isAtScrollEnd(sectionRef)) {
+      setSnapEnabled(true)
+    } else {
+      setSnapEnabled(false)
+    }
+  }
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -81,21 +145,28 @@ export default function LaPropuestaPage() {
     { date: "31 de agosto de 2026", event: "Fase 5: Entrega y puesta de Operación." }
   ];
 
+
+
   return (
     <div ref={mainRef} className="h-screen w-screen">
       <div 
         ref={scrollContainerRef}
-        className="h-full w-full z-10 overflow-y-scroll snap-y snap-mandatory"
+        className={`h-full w-full z-10 overflow-y-scroll ${snapEnabled ? 'snap-y snap-mandatory' : ''}`}
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none'
         }}
+        onScroll={handleContainerScroll}
       >
       
         {/* ================================================================== */}
         {/* SECCIÓN 1: La Propuesta de Valor Real */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+        <section 
+          ref={section1Ref}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          onScroll={() => handleSectionScroll(section1Ref)}
+        >
           <div className="content-wrapper text-center px-4 w-full">
             <div className="max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-5xl font-serif font-bold">
@@ -130,7 +201,11 @@ export default function LaPropuestaPage() {
         {/* ================================================================== */}
         {/* SECCIÓN 2: Nuestro Plan de Ejecución */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+        <section 
+          ref={section2Ref}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          onScroll={() => handleSectionScroll(section2Ref)}
+        >
           <div className="content-wrapper text-center px-4 w-full">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-gray-900 dark:text-white">Nuestro Plan de Ejecución</h2>
@@ -166,7 +241,11 @@ export default function LaPropuestaPage() {
         {/* ================================================================== */}
         {/* SECCIÓN 3: Tu Centro de Control Propietario */}
         {/* ================================================================== */}
-        <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+        <section 
+          ref={section3Ref}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          onScroll={() => handleSectionScroll(section3Ref)}
+        >
           <div className="content-wrapper text-center px-4 w-full">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-gray-900 dark:text-white">Gestión Total. Tranquilidad Absoluta.</h2>
