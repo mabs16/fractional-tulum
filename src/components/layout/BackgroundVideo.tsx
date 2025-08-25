@@ -16,16 +16,28 @@ const videoSources = {
 }
 
 export function BackgroundVideo() {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const video1Ref = useRef<HTMLVideoElement>(null)
   const video2Ref = useRef<HTMLVideoElement>(null)
   const [mounted, setMounted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [currentVideo, setCurrentVideo] = useState(1)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [initialTheme, setInitialTheme] = useState<string | null>(null)
 
-  // Manejar el montaje del componente para evitar errores de hidratación
+  // Manejar el montaje del componente y detectar tema inicial
   useEffect(() => {
+    // Detectar tema inicial del sistema o localStorage
+    const detectInitialTheme = () => {
+      const storedTheme = localStorage.getItem('theme')
+      if (storedTheme && storedTheme !== 'system') {
+        return storedTheme
+      }
+      // Si no hay tema guardado o es 'system', usar preferencia del sistema
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+    
+    setInitialTheme(detectInitialTheme())
     setMounted(true)
   }, [])
 
@@ -44,12 +56,13 @@ export function BackgroundVideo() {
   }, [mounted])
 
   // Seleccionar el video apropiado según el dispositivo y tema
-  // Usar valores por defecto consistentes durante la hidratación
-  const videoSrc = !mounted 
-    ? videoSources.desktop.light // Valor por defecto consistente
+  // Usar tema inicial durante la hidratación para evitar inconsistencias
+  const currentTheme = mounted ? resolvedTheme : initialTheme
+  const videoSrc = !mounted || !currentTheme
+    ? (initialTheme === 'dark' ? videoSources.desktop.dark : videoSources.desktop.light) // Usar tema inicial detectado
     : isMobile 
-      ? (theme === 'dark' ? videoSources.mobile.dark : videoSources.mobile.light)
-      : (theme === 'dark' ? videoSources.desktop.dark : videoSources.desktop.light)
+      ? (currentTheme === 'dark' ? videoSources.mobile.dark : videoSources.mobile.light)
+      : (currentTheme === 'dark' ? videoSources.desktop.dark : videoSources.desktop.light)
 
   // Función para cargar video con HLS
   const loadVideo = (video: HTMLVideoElement, src: string) => {
@@ -112,7 +125,7 @@ export function BackgroundVideo() {
         hls.destroy()
       }
     }
-  }, [mounted, videoSrc, theme, isMobile])
+  }, [mounted, videoSrc, resolvedTheme, isMobile])
 
   return (
     <div className="fixed inset-0 w-screen h-screen -z-10 overflow-hidden bg-white dark:bg-black">

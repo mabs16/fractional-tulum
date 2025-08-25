@@ -13,9 +13,13 @@ export function ThemeSwitcher() {
     setMounted(true)
   }, [])
 
-  // Esta función ahora simplemente alterna entre claro y oscuro.
+  // Esta función alterna únicamente entre claro y oscuro.
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark')
+    if (theme === 'dark') {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
   }
 
   // Renderizar un botón simple mientras no esté montado
