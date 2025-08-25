@@ -213,18 +213,42 @@ export default function LaPropuestaPage() {
                 Creemos en la transparencia total. Este es nuestro cronograma, alineado con nuestro SOW.
               </p>
               <div className="mt-12 space-y-8 relative">
-                {/* Línea vertical de la línea de tiempo */}
+                {/* Línea vertical de la línea de tiempo - Desktop */}
                 <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-border hidden md:block"></div>
                 
+                {/* Línea vertical de la línea de tiempo - Mobile */}
+                <div className="absolute left-6 top-0 h-full w-0.5 bg-brand-gold/30 md:hidden"></div>
+                
                 {timelineSteps.map((step, index) => (
-                  <div key={index} className="flex flex-col md:flex-row items-center justify-center gap-8">
-                    <div className="md:w-5/12 text-right">
-                      <h3 className="font-bold text-lg text-brand-gold drop-shadow-md">{step.date}</h3>
+                  <div key={index}>
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-4 md:gap-8">
+                      {/* Layout para móvil */}
+                      <div className="flex md:hidden w-full">
+                        <div className="relative flex-shrink-0 mr-6">
+                          <div className="bg-brand-gold h-4 w-4 rounded-full relative z-10"></div>
+                        </div>
+                        <div className="flex-1 pb-4">
+                          <h3 className="font-bold text-base text-brand-gold mb-2">{step.date}</h3>
+                          <p className="font-semibold text-sm text-gray-700 dark:text-gray-300">{step.event}</p>
+                        </div>
+                      </div>
+                      
+                      {/* Layout para desktop */}
+                      <div className="hidden md:flex md:w-5/12 text-right">
+                        <h3 className="font-bold text-lg text-brand-gold drop-shadow-md">{step.date}</h3>
+                      </div>
+                      <div className="relative bg-brand-gold h-4 w-4 rounded-full hidden md:block"></div>
+                      <div className="hidden md:flex md:w-5/12 text-left">
+                        <p className="font-semibold text-lg">{step.event}</p>
+                      </div>
                     </div>
-                    <div className="relative bg-brand-gold h-4 w-4 rounded-full hidden md:block"></div>
-                    <div className="md:w-5/12 text-left">
-                      <p className="font-semibold text-lg">{step.event}</p>
-                    </div>
+                    
+                    {/* Flecha direccional para móvil - solo entre pasos, no después del último */}
+                    {index < timelineSteps.length - 1 && (
+                      <div className="flex md:hidden justify-start ml-6 mb-4">
+                        <ChevronDown className="h-6 w-6 text-brand-gold animate-pulse" />
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -279,18 +303,20 @@ export default function LaPropuestaPage() {
         </section>
 
         {/* ================================================================== */}
-        {/* SECCIÓN 4: Llamada a la Acción Final */}
+        {/* SECCIÓN 5: LLAMADA A LA ACCIÓN FINAL */}
         {/* ================================================================== */}
         <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
-          <div className="content-wrapper text-center px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold">Estás a un Paso de la Propiedad Inteligente</h2>
-              <Button asChild size="lg" className="mt-8 bg-brand-gold hover:bg-brand-gold/90 text-white font-bold">
-                  <Link href="/nuestro-equipo">Conoce al Equipo Detrás del Proyecto</Link>
-              </Button>
-            </div>
+          <div className="content-wrapper text-center px-4 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">Conoce al Equipo Detrás del Proyecto</h2>
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
+              Un equipo de expertos en desarrollo inmobiliario, finanzas y hospitalidad, comprometidos con tu éxito.
+            </p>
+            <Button asChild size="lg" className="mt-8 px-10 py-4 text-xl font-semibold rounded-full bg-brand-gold hover:bg-brand-gold/90 text-white font-bold shadow-2xl shadow-brand-gold/50">
+              <Link href="/nuestro-equipo"><span style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>Conoce al Equipo Detrás del Proyecto</span></Link>
+            </Button>
           </div>
         </section>
+
       </div>
     </div>
   );

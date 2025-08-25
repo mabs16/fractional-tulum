@@ -142,7 +142,7 @@ export default function HomePage() {
               }}
               onClick={scrollToNextSection}
             >
-              Explora la Oportunidad
+              <span style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>Explora la Oportunidad</span>
             </Button>
             <div className="mt-8 flex justify-center">
               <div className="animate-bounce">
@@ -165,7 +165,7 @@ export default function HomePage() {
           onScroll={() => handleSectionScroll(section2Ref)}
         >
           <div className="content-wrapper text-center">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12">Tener una Casa en el Paraíso No Debería Ser un Trabajo a Tiempo Completo.</h2>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12 flex flex-wrap justify-center">Tener una Casa en el Paraíso<span className="md:w-full"> No debería ser un trabajo a tiempo completo.</span></h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               <Card className="bg-black/30 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
@@ -232,9 +232,9 @@ export default function HomePage() {
                 <div className="bg-black/50 aspect-video w-full max-w-3xl mx-auto mt-8 flex items-center justify-center border border-white/20 rounded-lg">
                     <p>Video de Tulum Country Club Próximamente</p>
                 </div>
-                <Button size="lg" variant="secondary" className="mt-8">
+                {/* <Button size="lg" variant="secondary" className="mt-8">
                     Explorar Nuestra Villa
-                </Button>
+                </Button> */}
             </div>
         </section>
 
@@ -243,8 +243,18 @@ export default function HomePage() {
         {/* ================================================================== */}
         <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
             <div className="content-wrapper text-center">
-                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">Tu Llave a un Mundo de Destinos.</h2>
+                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 drop-shadow-lg drop-shadow-black/50">Tu Llave a un Mundo de Destinos.</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg">Tu propiedad en Tulum es solo el comienzo. Es la llave de entrada a un futuro portafolio de residencias exclusivas en los destinos más deseados.</p>
+                <Button 
+                  size="lg" 
+                  className="px-16 py-6 text-2xl font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mt-8 hover:brightness-90"
+                  style={{
+                    background: 'linear-gradient(to right, #B89E63, #A08B56)'
+                  }}
+                  onClick={() => window.location.href = '/propiedad-inteligente'}
+                >
+                  <span style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>La Propiedad Inteligente</span>
+                </Button>
             </div>
         </section>
       </div>

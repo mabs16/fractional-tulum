@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
-import { Menu } from 'lucide-react'
+import { Menu, User } from 'lucide-react'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
 export function PublicNavbar() {
@@ -43,6 +43,14 @@ export function PublicNavbar() {
         {/* Botones de Acción para Escritorio */}
         <div className="hidden md:flex items-center gap-4">
           <ThemeSwitcher />
+          
+          {/* Botón de Inicio de Sesión para Escritorio */}
+          <Button asChild variant="ghost" className="flex items-center gap-2 text-white dark:text-black hover:text-brand-gold">
+            <Link href="/acceder">
+              <User className="h-4 w-4" />
+              <span>Iniciar Sesión</span>
+            </Link>
+          </Button>
           
           {/* --- NAVEGACIÓN PARA ESCRITORIO CON SHEET --- */}
           {mounted ? (
@@ -94,6 +102,14 @@ export function PublicNavbar() {
         {/* --- INICIO DE LA CORRECCIÓN PARA MÓVIL --- */}
         <div className="md:hidden flex items-center gap-2">
           <ThemeSwitcher /> {/* Botón de tema AHORA está aquí afuera */}
+          
+          {/* Botón de Inicio de Sesión para Móvil */}
+          <Button asChild variant="ghost" size="icon" className="text-white dark:text-black hover:text-brand-gold">
+            <Link href="/acceder">
+              <User className="h-6 w-6" />
+              <span className="sr-only">Iniciar Sesión</span>
+            </Link>
+          </Button>
           {mounted ? (
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>

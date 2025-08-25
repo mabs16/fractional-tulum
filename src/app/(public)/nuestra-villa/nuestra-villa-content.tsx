@@ -152,8 +152,8 @@ export default function NuestraVillaPage() {
                </h2>
                <Dialog>
                  <DialogTrigger asChild>
-                   <Button className="mt-8 px-8 py-3 text-lg font-semibold rounded-full bg-brand-gold text-white hover:bg-brand-gold/90 transition-colors duration-300 shadow-lg">
-                     Iniciar Recorrido Virtual 360°
+                   <Button className="mt-8 px-10 py-4 text-xl font-semibold rounded-full bg-brand-gold text-white hover:bg-brand-gold/90 transition-colors duration-300 shadow-2xl shadow-brand-gold/50">
+                     <span style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>Iniciar Recorrido Virtual 360°</span>
                    </Button>
                  </DialogTrigger>
                  <DialogContent className="max-w-none w-[95vw] h-[90vh] p-0">
@@ -308,8 +308,8 @@ export default function NuestraVillaPage() {
           <div className="content-wrapper container mx-auto px-4 text-center max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white">Visualiza Tu Futuro en Fractional Tulum</h2>
             <p className="mt-4 text-lg text-gray-700 dark:text-muted-foreground mb-8">Ahora que conoces la propiedad, entiende por qué es la decisión de inversión más inteligente.</p>
-            <Button asChild size="lg" className="bg-brand-gold hover:bg-brand-gold/90 text-white font-bold">
-                <Link href="/la-propuesta">Ver la Propuesta de Inversión</Link>
+            <Button asChild size="lg" className="mt-8 px-10 py-4 text-xl font-semibold rounded-full bg-brand-gold hover:bg-brand-gold/90 text-white font-bold shadow-2xl shadow-brand-gold/50">
+                <Link href="/la-propuesta"><span style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>Ver la Propuesta de Inversión</span></Link>
             </Button>
           </div>
         </section>

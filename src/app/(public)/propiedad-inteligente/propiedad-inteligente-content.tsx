@@ -173,26 +173,7 @@ export default function PropiedadInteligentePage() {
             
             {/* Contenido adicional para móviles */}
             <div className="space-y-6 text-left max-w-4xl mx-auto">
-              <div className="bg-white/80 dark:bg-black/20 p-6 rounded-lg border border-gray-200 dark:border-white/20">
-                <h3 className="text-xl font-bold mb-4 text-brand-gold">Ventajas Legales Exclusivas</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Título de propiedad real registrado ante notario público</span></li>
-                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Protección patrimonial mediante sociedad dedicada</span></li>
-                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Derechos de herencia y transferencia garantizados</span></li>
-                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Transparencia total en la estructura de costos</span></li>
-                </ul>
-              </div>
-              
-              <div className="bg-white/80 dark:bg-black/20 p-6 rounded-lg border border-gray-200 dark:border-white/20">
-                <h3 className="text-xl font-bold mb-4 text-brand-gold">Gestión Profesional Integral</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Mantenimiento preventivo y correctivo incluido</span></li>
-                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Gestión de reservas y huéspedes profesional</span></li>
-                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Optimización de tarifas según temporada</span></li>
-                  <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span>Reportes financieros mensuales detallados</span></li>
-                </ul>
-              </div>
-              
+
               <div className="bg-white/80 dark:bg-black/20 p-6 rounded-lg border border-gray-200 dark:border-white/20">
                 <h3 className="text-xl font-bold mb-4 text-brand-gold">Tu Tranquilidad, Nuestra Prioridad</h3>
                 <p className="text-gray-700 dark:text-muted-foreground mb-4">
@@ -213,7 +194,7 @@ export default function PropiedadInteligentePage() {
         {/* ================================================================== */}
         <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
           <div className="content-wrapper text-center max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-gray-900 dark:text-white">La Propiedad Inteligente, en 90 Segundos</h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-gray-900 dark:text-white">El Futuro de la Propiedad Vacacional. La visión de Hole in One</h2>
             <div className="bg-gray-100 dark:bg-black/50 aspect-video w-full max-w-4xl mx-auto flex items-center justify-center border border-gray-300 dark:border-white/20 rounded-lg">
                 <p className="text-gray-600 dark:text-muted-foreground">Video Explicativo Próximamente</p>
             </div>
@@ -233,8 +214,9 @@ export default function PropiedadInteligentePage() {
               style={{
                 background: 'linear-gradient(to right, #B89E63, #A08B56)'
               }}
+              onClick={() => window.location.href = '/nuestra-villa'}
             >
-                Explorar Nuestra Villa
+                <span style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>Explorar Nuestra Villa</span>
             </Button>
           </div>
         </section>

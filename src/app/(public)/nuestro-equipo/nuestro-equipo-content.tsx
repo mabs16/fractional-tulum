@@ -4,7 +4,7 @@ import { Facebook, Instagram, Linkedin, Phone, Globe } from 'lucide-react'
 import React, { useEffect, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Briefcase, Calendar, Rocket, ChevronDown} from 'lucide-react';
+import { CheckCircle, Briefcase, Calendar, Rocket, ChevronDown, ArrowRight} from 'lucide-react';
 import Link from 'next/link';
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -75,7 +75,7 @@ export default function NuestroEquipoPage() {
       {/* ================================================================== */}
       {/* SECCIÓN 1: Manifiesto del Equipo */}
       {/* ================================================================== */}
-      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4 relative">
           <div className="content-wrapper text-center px-4 w-full">
         <h1 className="text-4xl md:text-5xl font-serif font-bold">
           Los Expertos Detrás de Tu Inversión
@@ -89,7 +89,7 @@ export default function NuestroEquipoPage() {
           </div>
           <button 
               onClick={scrollToNextSection}
-              className="scroll-indicator mt-12 mx-auto block text-brand-gold hover:text-brand-gold/80 transition-colors"
+              className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0 md:right-8 md:top-1/2 md:-translate-y-1/2 text-brand-gold hover:text-brand-gold/80 transition-colors"
             >
               <ChevronDown size={32} />
             </button>
@@ -101,7 +101,7 @@ export default function NuestroEquipoPage() {
       {/* ================================================================== */}
       {/* SECCIÓN 2: Luis Ángel Rosas */}
       {/* ================================================================== */}
-      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4 relative">
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
@@ -110,7 +110,7 @@ export default function NuestroEquipoPage() {
             </div>
           </div>
           <div className="text-center md:text-left">
-            <h2 className="text-3xl font-serif font-bold text-gray-900">Luis Ángel Rosas</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Luis Ángel Rosas</h2>
             <p className="text-brand-gold font-semibold mt-1">El Biker Inmobiliario - Visión Comercial</p>
             <p className="mt-4 text-muted-foreground">Con más de 3 años de experiencia en el sector y una comunidad de miles de seguidores, Luis es el motor comercial del proyecto, conectando nuestra visión con los inversionistas correctos.</p>
             <div className="mt-6 flex justify-center md:justify-start items-center gap-4">
@@ -125,7 +125,7 @@ export default function NuestroEquipoPage() {
           </div>
           <button 
               onClick={scrollToNextSection}
-              className="scroll-indicator mt-12 mx-auto block text-brand-gold hover:text-brand-gold/80 transition-colors"
+              className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0 md:right-8 md:top-1/2 md:-translate-y-1/2 text-brand-gold hover:text-brand-gold/80 transition-colors"
             >
               <ChevronDown size={32} />
             </button>
@@ -137,7 +137,7 @@ export default function NuestroEquipoPage() {
       {/* ================================================================== */}
       {/* SECCIÓN 3: Lalo Tager */}
       {/* ================================================================== */}
-      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4 relative">
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="order-1 md:order-2">
@@ -146,7 +146,7 @@ export default function NuestroEquipoPage() {
             </div>
           </div>
           <div className="order-2 md:order-1 text-center md:text-left">
-            <h2 className="text-3xl font-serif font-bold text-gray-900">Lalo Tager</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Lalo Tager</h2>
             <p className="text-brand-gold font-semibold mt-1">Constructor - La Solidez del Proyecto</p>
             <p className="mt-4 text-muted-foreground">Lalo aporta décadas de experiencia en la construcción de proyectos residenciales. Su obsesión por la calidad de los materiales y la ejecución impecable es la garantía de que tu inversión está construida para durar.</p>
             <div className="mt-6 flex justify-center md:justify-start items-center gap-4">
@@ -161,7 +161,7 @@ export default function NuestroEquipoPage() {
           </div>
           <button 
               onClick={scrollToNextSection}
-              className="scroll-indicator mt-12 mx-auto block text-brand-gold hover:text-brand-gold/80 transition-colors"
+              className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0 md:right-8 md:top-1/2 md:-translate-y-1/2 text-brand-gold hover:text-brand-gold/80 transition-colors"
             >
               <ChevronDown size={32} />
             </button>
@@ -173,7 +173,7 @@ export default function NuestroEquipoPage() {
       {/* ================================================================== */}
       {/* SECCIÓN 4: Erick Tager */}
       {/* ================================================================== */}
-      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4 relative">
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
@@ -182,7 +182,7 @@ export default function NuestroEquipoPage() {
             </div>
           </div>
           <div className="text-center md:text-left">
-            <h2 className="text-3xl font-serif font-bold text-gray-900">Erick Tager</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Erick Tager</h2>
             <p className="text-brand-gold font-semibold mt-1">Arquitecto - El Diseño del Paraíso</p>
             <p className="mt-4 text-muted-foreground">Erick es la mente creativa detrás de la arquitectura de la Propiedad Alfa. Su visión combina el lujo moderno con la esencia orgánica de Tulum, creando espacios que son tanto un hogar como una obra de arte.</p>
             <div className="mt-6 flex justify-center md:justify-start items-center gap-4">
@@ -197,7 +197,7 @@ export default function NuestroEquipoPage() {
           </div>
           <button 
               onClick={scrollToNextSection}
-              className="scroll-indicator mt-12 mx-auto block text-brand-gold hover:text-brand-gold/80 transition-colors"
+              className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0 md:right-8 md:top-1/2 md:-translate-y-1/2 text-brand-gold hover:text-brand-gold/80 transition-colors"
             >
               <ChevronDown size={32} />
             </button>
@@ -209,7 +209,7 @@ export default function NuestroEquipoPage() {
       {/* ================================================================== */}
       {/* SECCIÓN 5: Alejandro Nevarez */}
       {/* ================================================================== */}
-      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4 relative">
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="order-1 md:order-2">
@@ -218,7 +218,7 @@ export default function NuestroEquipoPage() {
             </div>
           </div>
           <div className="order-2 md:order-1 text-center md:text-left">
-            <h2 className="text-3xl font-serif font-bold">Alejandro Nevarez</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Alejandro Nevarez</h2>
             <p className="text-brand-gold font-semibold mt-1">Visualización 3D - La Experiencia Inmersiva</p>
             <p className="mt-4 text-muted-foreground">Alejandro es nuestro experto en hacer tangible lo intangible. Él crea los recorridos virtuales que te permiten caminar por tu futura propiedad antes de que se coloque el primer ladrillo.</p>
             <div className="mt-6 flex justify-center md:justify-start items-center gap-4">
@@ -233,7 +233,7 @@ export default function NuestroEquipoPage() {
           </div>
           <button 
               onClick={scrollToNextSection}
-              className="scroll-indicator mt-12 mx-auto block text-brand-gold hover:text-brand-gold/80 transition-colors"
+              className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0 md:right-8 md:top-1/2 md:-translate-y-1/2 text-brand-gold hover:text-brand-gold/80 transition-colors"
             >
               <ChevronDown size={32} />
             </button>
@@ -245,7 +245,7 @@ export default function NuestroEquipoPage() {
       {/* ================================================================== */}
       {/* SECCIÓN 6: Mario Bustamante */}
       {/* ================================================================== */}
-      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
+      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4 relative">
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
@@ -254,7 +254,7 @@ export default function NuestroEquipoPage() {
             </div>
           </div>
           <div className="text-center md:text-left">
-            <h2 className="text-3xl font-serif font-bold">Mario Bustamante</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Mario Bustamante</h2>
             <p className="text-brand-gold font-semibold mt-1">Tecnología - La Plataforma de tu Inversión</p>
             <p className="mt-4 text-muted-foreground">Como desarrollador de la plataforma, Mario se encarga de que la experiencia del copropietario sea tan sólida y transparente como la inversión misma, creando las herramientas para tu tranquilidad.</p>
             <div className="mt-6 flex justify-center md:justify-start items-center gap-4">
@@ -269,10 +269,34 @@ export default function NuestroEquipoPage() {
           </div>
           <button 
               onClick={scrollToNextSection}
-              className="scroll-indicator mt-12 mx-auto block text-brand-gold hover:text-brand-gold/80 transition-colors"
+              className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0 md:right-8 md:top-1/2 md:-translate-y-1/2 text-brand-gold hover:text-brand-gold/80 transition-colors"
             >
               <ChevronDown size={32} />
             </button>
+      </section>
+
+      {/* ================================================================== */}
+      {/* ================================================================== */}
+      {/* SECCIÓN CTA: Preguntas Frecuentes */}
+      {/* ================================================================== */}
+      <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4 relative">
+        <div className="content-wrapper text-center px-4 w-full max-w-4xl">
+          <div className="text-center">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-6">
+              ¿Tienes más preguntas?
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Nuestro equipo está aquí para resolver todas tus dudas sobre la copropiedad fraccionada y ayudarte a tomar la mejor decisión de inversión.
+            </p>
+            <Link 
+              href="/preguntas-frecuentes"
+              className="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+            >
+              Ver Preguntas Frecuentes
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
       </section>
 
     </div>
