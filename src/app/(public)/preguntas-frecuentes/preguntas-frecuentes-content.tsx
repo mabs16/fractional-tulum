@@ -80,7 +80,7 @@ export default function FaqPage() {
         {faqData.map((categoryItem, categoryIndex) => (
           <div 
             key={categoryItem.category} 
-            className="mb-8 sm:mb-12 md:mb-16 last:mb-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
+            className="mb-8 sm:mb-12 md:mb-16 last:mb-0 bg-white/35 dark:bg-black/30 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold mb-4 sm:mb-6 md:mb-8 text-gray-900 dark:text-white text-center sm:text-left">
               {categoryItem.category}

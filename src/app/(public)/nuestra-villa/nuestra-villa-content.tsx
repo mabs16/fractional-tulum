@@ -132,7 +132,7 @@ export default function NuestraVillaPage() {
                  <DialogTrigger asChild>
                    <div className="relative cursor-pointer mt-4 mb-4 w-[300px] h-[200px] md:w-[400px] md:h-[250px] lg:w-[500px] lg:h-[300px] xl:w-[600px] xl:h-[350px] group">
                      {/* GIF que abre el recorrido virtual */}
-                     <div className="w-full h-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105">
+                     <div className="w-full h-full bg-white/35 dark:bg-black/30 backdrop-blur-sm flex items-center justify-center rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105">
                        <p className="text-gray-700 dark:text-gray-300 text-center">GIF del Recorrido Virtual Aquí</p>
                      </div>
 
@@ -197,7 +197,7 @@ export default function NuestraVillaPage() {
         {/* ================================================================== */}
         <section 
           ref={section2Ref}
-          className={`scroll-section snap-start bg-transparent ${
+          className={`scroll-section snap-start bg-transparent ${isMobile ? 'pb-36' : ''} ${
             isMobile 
               ? 'h-auto min-h-screen pt-20 pb-8 overflow-y-auto flex items-start justify-center' 
               : 'h-screen flex items-center justify-center'
@@ -210,19 +210,19 @@ export default function NuestraVillaPage() {
               <p className="mt-4 text-lg text-gray-700 dark:text-muted-foreground">Descubre lo que hace única a nuestra villa</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <Card>
+              <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <CardHeader><CardTitle>4 Suites de Lujo</CardTitle></CardHeader>
                   <CardContent><p className="text-muted-foreground">Totalmente equipadas y autosuficientes para garantizar privacidad y confort.</p></CardContent>
               </Card>
-              <Card>
+              <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <CardHeader><CardTitle>Amenidades de Resort</CardTitle></CardHeader>
                   <CardContent><p className="text-muted-foreground">Dos albercas, cine privado, gimnasio y más, todo dentro de tu propiedad.</p></CardContent>
               </Card>
-              <Card>
+              <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <CardHeader><CardTitle>Diseño y Arquitectura</CardTitle></CardHeader>
                   <CardContent><p className="text-muted-foreground">Espacios amplios y acabados de lujo en cada rincón.</p></CardContent>
               </Card>
-              <Card>
+              <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <CardHeader><CardTitle>Ubicación Privilegiada</CardTitle></CardHeader>
                   <CardContent><p className="text-muted-foreground">Dentro de la comunidad exclusiva de Tulum Country Club.</p></CardContent>
               </Card>
@@ -237,35 +237,35 @@ export default function NuestraVillaPage() {
           <div className="content-wrapper container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-8">Planos y Distribución</h2>
             <Tabs defaultValue="fachadas" className="w-full max-w-4xl mx-auto">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-4 bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                 <TabsTrigger value="fachadas">Fachadas</TabsTrigger>
                 <TabsTrigger value="planta-baja">Planta Baja</TabsTrigger>
                 <TabsTrigger value="primer-nivel">Primer Nivel</TabsTrigger>
                 <TabsTrigger value="roof-top">Roof Top</TabsTrigger>
               </TabsList>
               <TabsContent value="fachadas">
-                <Card className="mt-4">
+                <Card className="mt-4 bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <CardContent className="p-6">
                     <Image src="https://tulumfractional.b-cdn.net/fachadas..jpg" alt="Fachadas" width={800} height={600} layout="responsive" className="rounded-lg" />
                   </CardContent>
                 </Card>
               </TabsContent>
               <TabsContent value="planta-baja">
-                <Card className="mt-4">
+                <Card className="mt-4 bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <CardContent className="p-6">
                     <Image src="https://tulumfractional.b-cdn.net/Planta%20Baja..jpg" alt="Planta Baja" width={800} height={600} layout="responsive" className="rounded-lg" />
                   </CardContent>
                 </Card>
               </TabsContent>
               <TabsContent value="primer-nivel">
-                <Card className="mt-4">
+                <Card className="mt-4 bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <CardContent className="p-6">
                     <Image src="https://tulumfractional.b-cdn.net/primer%20nivel..jpg" alt="Primer Nivel" width={800} height={600} layout="responsive" className="rounded-lg" />
                   </CardContent>
                 </Card>
               </TabsContent>
               <TabsContent value="roof-top">
-                <Card className="mt-4">
+                <Card className="mt-4 bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <CardContent className="p-6">
                     <Image src="https://tulumfractional.b-cdn.net/Roof%20Top..jpg" alt="Roof Top" width={800} height={600} layout="responsive" className="rounded-lg" />
                   </CardContent>
@@ -280,7 +280,7 @@ export default function NuestraVillaPage() {
         {/* ================================================================== */}
         <section 
           ref={section4Ref}
-          className={`scroll-section snap-start bg-transparent dark:bg-black ${
+          className={`scroll-section snap-start bg-transparent ${isMobile ? 'pb-36' : ''} ${
             isMobile 
               ? 'h-auto min-h-screen pt-20 pb-8 overflow-y-auto flex items-start justify-center' 
               : 'h-screen flex items-center justify-center'
@@ -292,7 +292,7 @@ export default function NuestraVillaPage() {
             <p className="mt-2 text-gray-700 dark:text-muted-foreground">Cada amenidad está diseñada para tu máximo confort y disfrute.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
                 {amenities.map(amenity => (
-                    <div key={amenity.name} className="flex flex-col items-center text-center p-4 rounded-lg shadow-md bg-white dark:bg-black transition-colors duration-300">
+                    <div key={amenity.name} className="flex flex-col items-center text-center p-4 rounded-lg shadow-md bg-white/35 dark:bg-black/30 backdrop-blur-sm transition-colors duration-300">
                         <div className="text-brand-gold mb-2">{React.cloneElement(amenity.icon, { size: 32 })}</div>
                         <p className="font-semibold text-gray-900 dark:text-white">{amenity.name}</p>
                     </div>

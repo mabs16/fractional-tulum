@@ -159,27 +159,27 @@ export default function HomePage() {
         {/* ================================================================== */}
         <section 
           ref={section2Ref}
-          className={`scroll-section h-screen w-full snap-start flex text-black dark:text-white p-4 ${
+          className={`scroll-section h-screen w-full snap-start flex text-black dark:text-white p-4 pb-36 sm:pb-0 ${
             isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'
-          }`}
+          }`} 
           onScroll={() => handleSectionScroll(section2Ref)}
         >
           <div className="content-wrapper text-center">
             <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12 flex flex-wrap justify-center">Tener una Casa en el Paraíso<span className="md:w-full"> No debería ser un trabajo a tiempo completo.</span></h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <Card className="bg-black/30 backdrop-blur-sm border-white/20">
+              <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold font-serif text-brand-gold mb-2">Capital Ineficiente</h3>
                   <p>Un activo de lujo que solo disfrutas unas pocas semanas al año, con la mayor parte de tu inversión parada.</p>
                 </CardContent>
               </Card>
-              <Card className="bg-black/30 backdrop-blur-sm border-white/20">
+              <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold font-serif text-brand-gold mb-2">Carga de Gestión</h3>
                   <p>Lidiar con mantenimiento, personal y la logística a distancia te roba la tranquilidad que fuiste a buscar.</p>
                 </CardContent>
               </Card>
-              <Card className="bg-black/30 backdrop-blur-sm border-white/20">
+              <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm border-white/20">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold font-serif text-brand-gold mb-2">Falta de Flexibilidad</h3>
                   <p>Tu patrimonio está atado a un solo lugar, limitando tus experiencias futuras.</p>
@@ -194,9 +194,9 @@ export default function HomePage() {
         {/* ================================================================== */}
         <section 
           ref={section3Ref}
-          className={`scroll-section h-screen w-full snap-start flex text-black dark:text-white p-4 ${
+          className={`scroll-section h-screen w-full snap-start flex text-black dark:text-white p-4 pb-24 sm:pb-0 ${
             isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'
-          }`}
+          }`} 
           onScroll={() => handleSectionScroll(section3Ref)}
         >
             <div className="content-wrapper text-center max-w-4xl">
@@ -229,7 +229,7 @@ export default function HomePage() {
                 <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">No Solo es la Casa, es el Destino: Tulum Country Club.</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg">Tu propiedad forma parte de una comunidad exclusiva con un campo de golf de clase mundial y acceso a las mejores amenidades de la Riviera Maya.</p>
                 {/* --- ESPACIO PARA EL VIDEO DE TCC --- */}
-                <div className="bg-black/50 aspect-video w-full max-w-3xl mx-auto mt-8 flex items-center justify-center border border-white/20 rounded-lg">
+                <div className="bg-white/35 dark:bg-black/30 backdrop-blur-sm  aspect-video w-full max-w-3xl mx-auto mt-8 flex items-center justify-center border border-white/20 rounded-lg">
                     <p>Video de Tulum Country Club Próximamente</p>
                 </div>
                 {/* <Button size="lg" variant="secondary" className="mt-8">

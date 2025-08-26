@@ -83,7 +83,7 @@ export default function NuestroEquipoPage() {
         <p className="mt-6 text-lg text-muted-foreground">
           Fractional Tulum nace de la unión de profesionales apasionados, cada uno líder en su campo. No somos una corporación sin rostro; somos el equipo que personalmente garantiza la solidez y la humanidad de tu patrimonio.
         </p>
-        <div className="mt-16 bg-stone-200 dark:bg-stone-800 aspect-video w-full max-w-4xl mx-auto flex items-center justify-center border rounded-lg">
+        <div className="mt-16 bg-white/35 dark:bg-black/30 backdrop-blur-sm aspect-video w-full max-w-4xl mx-auto flex items-center justify-center border rounded-lg">
           <p className="text-muted-foreground">Foto o Video del Equipo Próximamente</p>
         </div>
           </div>
@@ -105,7 +105,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
-            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-white/35 dark:bg-black/30 backdrop-blur-sm w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Videode Luis Ángel</p>
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="order-1 md:order-2">
-            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-white/35 dark:bg-black/30 backdrop-blur-sm w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Video de Lalo</p>
             </div>
           </div>
@@ -177,7 +177,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
-            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-white/35 dark:bg-black/30 backdrop-blur-sm w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Video de Erick</p>
             </div>
           </div>
@@ -213,7 +213,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="order-1 md:order-2">
-            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-white/35 dark:bg-black/30 backdrop-blur-sm w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Videode Alejandro</p>
             </div>
           </div>
@@ -249,7 +249,7 @@ export default function NuestroEquipoPage() {
           <div className="content-wrapper text-center px-4 w-full">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
-            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-stone-200 dark:bg-stone-800 w-full flex items-center justify-center border rounded-lg`}>
+            <div className={`${isMobile ? 'aspect-[4/3.4]' : 'aspect-square'} bg-white/35 dark:bg-black/30 backdrop-blur-sm w-full flex items-center justify-center border rounded-lg`}>
                 <p className="text-muted-foreground">Foto o Video de Mario</p>
             </div>
           </div>

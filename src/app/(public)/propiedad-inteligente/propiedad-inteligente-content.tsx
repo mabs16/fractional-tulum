@@ -97,7 +97,7 @@ export default function PropiedadInteligentePage() {
         {/* ================================================================== */}
         <section 
           ref={section1Ref}
-          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto pb-32' : 'items-center justify-center'} text-black dark:text-white p-4`}
           onScroll={() => handleSectionScroll(section1Ref)}
         >
           <div className="content-wrapper text-center max-w-4xl mx-auto">
@@ -111,7 +111,7 @@ export default function PropiedadInteligentePage() {
             {/* Tabla Comparativa */}
             <div className="max-w-4xl mx-auto mb-8">
               <div className="grid grid-cols-1 md:grid-cols-2 border rounded-lg overflow-hidden">
-                <div className="p-6 bg-white dark:bg-stone-800">
+                <div className="p-6 bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <h3 className="text-xl font-bold font-serif text-brand-gold mb-4">Fractional Tulum</h3>
                   <ul className="space-y-3 text-left">
                     <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span><strong>Activo:</strong> Patrimonio Real y Tangible.</span></li>
@@ -120,7 +120,7 @@ export default function PropiedadInteligentePage() {
                     <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1" /><span><strong>Herencia:</strong> Sí, es un activo heredable.</span></li>
                   </ul>
                 </div>
-                <div className="p-6 bg-gray-50 dark:bg-gray-900">
+                <div className="p-6 bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <h3 className="text-xl font-bold font-serif text-gray-600 dark:text-muted-foreground mb-4">Tiempo Compartido Tradicional</h3>
                   <ul className="space-y-3 text-left">
                     <li className="flex items-start"><span className="text-red-500 mr-2 mt-1 font-bold">X</span><span><strong>Activo:</strong> Gasto de Uso Prepagado.</span></li>
@@ -147,13 +147,13 @@ export default function PropiedadInteligentePage() {
         {/* ================================================================== */}
         <section 
           ref={section2Ref}
-          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto pb-36' : 'items-center justify-center'} text-black dark:text-white p-4`}
           onScroll={() => handleSectionScroll(section2Ref)}
         >
           <div className="content-wrapper text-center max-w-5xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-12 text-gray-900 dark:text-white">La Estructura de tu Inversión: Sólida y Transparente</h2>
             <div className="grid md:grid-cols-2 gap-8 text-left mb-8">
-                <Card className="bg-white/90 dark:bg-black/30 backdrop-blur-sm border-gray-200 dark:border-white/20">
+                <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm border-gray-200 dark:border-white/20">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2"><Shield className="text-brand-gold"/>Sociedad de Copropiedad Dedicada</CardTitle>
                     </CardHeader>
@@ -161,7 +161,7 @@ export default function PropiedadInteligentePage() {
                         <p className="text-gray-700 dark:text-muted-foreground">Tu inversión está protegida en una &quot;caja fuerte&quot; legal a la medida. Constituimos una sociedad con un único propósito: poseer y salvaguardar la Propiedad Alfa. No hace nada más. Es la máxima garantía de que tu activo está seguro.</p>
                     </CardContent>
                 </Card>
-                <Card className="bg-white/90 dark:bg-black/30 backdrop-blur-sm border-gray-200 dark:border-white/20">
+                <Card className="bg-white/35 dark:bg-black/30 backdrop-blur-sm border-gray-200 dark:border-white/20">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2"><SlidersHorizontal className="text-brand-gold"/>Operación Hotelera Inteligente</CardTitle>
                     </CardHeader>
@@ -174,7 +174,7 @@ export default function PropiedadInteligentePage() {
             {/* Contenido adicional para móviles */}
             <div className="space-y-6 text-left max-w-4xl mx-auto">
 
-              <div className="bg-white/80 dark:bg-black/20 p-6 rounded-lg border border-gray-200 dark:border-white/20">
+              <div className="bg-white/35 dark:bg-black/30 p-6 rounded-lg border border-gray-200 dark:border-white/20">
                 <h3 className="text-xl font-bold mb-4 text-brand-gold">Tu Tranquilidad, Nuestra Prioridad</h3>
                 <p className="text-gray-700 dark:text-muted-foreground mb-4">
                   No te preocupes por nada. Desde el mantenimiento de la piscina hasta la gestión de huéspedes, 
@@ -195,7 +195,7 @@ export default function PropiedadInteligentePage() {
         <section className="scroll-section h-screen w-full snap-start flex items-center justify-center text-black dark:text-white p-4">
           <div className="content-wrapper text-center max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-gray-900 dark:text-white">El Futuro de la Propiedad Vacacional. La visión de Hole in One</h2>
-            <div className="bg-gray-100 dark:bg-black/50 aspect-video w-full max-w-4xl mx-auto flex items-center justify-center border border-gray-300 dark:border-white/20 rounded-lg">
+            <div className="bg-white/35 dark:bg-black/30 backdrop-blur-sm aspect-video w-full max-w-4xl mx-auto flex items-center justify-center border border-gray-300 dark:border-white/20 rounded-lg">
                 <p className="text-gray-600 dark:text-muted-foreground">Video Explicativo Próximamente</p>
             </div>
           </div>

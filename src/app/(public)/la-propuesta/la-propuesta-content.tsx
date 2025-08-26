@@ -164,7 +164,7 @@ export default function LaPropuestaPage() {
         {/* ================================================================== */}
         <section 
           ref={section1Ref}
-          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 pb-36 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
           onScroll={() => handleSectionScroll(section1Ref)}
         >
           <div className="content-wrapper text-center px-4 w-full">
@@ -177,7 +177,7 @@ export default function LaPropuestaPage() {
               </p>
               <div className="grid md:grid-cols-2 gap-8 mt-12 text-left">
                 {valueProps.map((prop) => (
-                  <Card key={prop.title}>
+                  <Card key={prop.title} className="bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                     <CardHeader className="flex flex-row items-center gap-4">
                       {prop.icon}
                       <CardTitle>{prop.title}</CardTitle>
@@ -203,21 +203,21 @@ export default function LaPropuestaPage() {
         {/* ================================================================== */}
         <section 
           ref={section2Ref}
-          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
+          className={`scroll-section h-screen w-full snap-start flex ${isMobile ? 'items-start justify-center pt-20 pb-36 overflow-y-auto' : 'items-center justify-center'} text-black dark:text-white p-4`}
           onScroll={() => handleSectionScroll(section2Ref)}
         >
           <div className="content-wrapper text-center px-4 w-full">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-gray-900 dark:text-white">Nuestro Plan de Ejecución</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
-                Creemos en la transparencia total. Este es nuestro cronograma, alineado con nuestro SOW.
+                Creemos en la transparencia total. Este es nuestro cronograma.
               </p>
               <div className="mt-12 space-y-8 relative">
                 {/* Línea vertical de la línea de tiempo - Desktop */}
-                <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-border hidden md:block"></div>
+                <div className="absolute left-1/2 -translate-x-1/2 h-full w-1 bg-brand-gold/40 dark:bg-border hidden md:block"></div>
                 
                 {/* Línea vertical de la línea de tiempo - Mobile */}
-                <div className="absolute left-6 top-0 h-full w-0.5 bg-brand-gold/30 md:hidden"></div>
+                <div className="absolute left-6 top-0 h-full w-1 bg-brand-gold/50 md:hidden"></div>
                 
                 {timelineSteps.map((step, index) => (
                   <div key={index}>
@@ -225,9 +225,9 @@ export default function LaPropuestaPage() {
                       {/* Layout para móvil */}
                       <div className="flex md:hidden w-full">
                         <div className="relative flex-shrink-0 mr-6">
-                          <div className="bg-brand-gold h-4 w-4 rounded-full relative z-10"></div>
+                          <div className="bg-brand-gold h-4 w-4 rounded-full relative z-10 shadow-lg dark:shadow-none"></div>
                         </div>
-                        <div className="flex-1 pb-4">
+                        <div className="flex-1 pb-4 bg-white/35 dark:bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
                           <h3 className="font-bold text-base text-brand-gold mb-2">{step.date}</h3>
                           <p className="font-semibold text-sm text-gray-700 dark:text-gray-300">{step.event}</p>
                         </div>
@@ -235,18 +235,22 @@ export default function LaPropuestaPage() {
                       
                       {/* Layout para desktop */}
                       <div className="hidden md:flex md:w-5/12 text-right">
-                        <h3 className="font-bold text-lg text-brand-gold drop-shadow-md">{step.date}</h3>
+                        <div className="bg-white/35 dark:bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50 dark:border-gray-700/50 shadow-lg w-full">
+                          <h3 className="font-bold text-lg text-brand-gold drop-shadow-md">{step.date}</h3>
+                        </div>
                       </div>
-                      <div className="relative bg-brand-gold h-4 w-4 rounded-full hidden md:block"></div>
+                      <div className="relative bg-brand-gold h-4 w-4 rounded-full hidden md:block z-10 shadow-lg dark:shadow-none"></div>
                       <div className="hidden md:flex md:w-5/12 text-left">
-                        <p className="font-semibold text-lg">{step.event}</p>
+                        <div className="bg-white/35 dark:bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50 dark:border-gray-700/50 shadow-lg w-full">
+                          <p className="font-semibold text-lg">{step.event}</p>
+                        </div>
                       </div>
                     </div>
                     
                     {/* Flecha direccional para móvil - solo entre pasos, no después del último */}
                     {index < timelineSteps.length - 1 && (
                       <div className="flex md:hidden justify-start ml-6 mb-4">
-                        <ChevronDown className="h-6 w-6 text-brand-gold animate-pulse" />
+                        <ChevronDown className="h-8 w-8 text-brand-gold animate-pulse drop-shadow-lg dark:drop-shadow-none" strokeWidth={3} />
                       </div>
                     )}
                   </div>
