@@ -280,7 +280,7 @@ export default function LaPropuestaPage() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
                 Tu inversión está respaldada por una plataforma tecnológica de primer nivel que te da control y transparencia 24/7.
               </p>
-              <Card className="text-left overflow-hidden">
+              <Card className="text-left overflow-hidden bg-white/35 dark:bg-black/30 backdrop-blur-sm">
                   <div className="grid md:grid-cols-2">
                       <div className="p-8">
                           <h3 className="text-2xl font-bold font-serif mb-4 text-gray-900 dark:text-white">Tu Portal de Propietario</h3>
@@ -290,7 +290,7 @@ export default function LaPropuestaPage() {
                               <li className="flex items-start"><CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" /><span>Recibe comunicados y notificaciones importantes del equipo.</span></li>
                           </ul>
                       </div>
-                      <div className="bg-stone-100 dark:bg-stone-800 flex items-center justify-center p-8">
+                      <div className="bg-stone-100/50 dark:bg-stone-800/50 backdrop-blur-sm flex items-center justify-center p-28">
                           {/* Placeholder para un GIF o imagen del dashboard */}
                           <p className="text-muted-foreground">Mockup del Dashboard Próximamente</p>
                       </div>
